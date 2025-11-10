@@ -1,0 +1,8 @@
+.env
+logs/
+notebooks/
+__pycache__/
+old_logs/
+requirements_old.txt
+archive/
+EmoBench/
