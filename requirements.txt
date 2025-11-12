@@ -113,3 +113,4 @@ wcwidth @ file:///Users/ktietz/demo/mc3/conda-bld/wcwidth_1629357192024/work
 xxhash==3.5.0
 yarl==1.18.3
 zstandard==0.23.0
+rich==14.2.0

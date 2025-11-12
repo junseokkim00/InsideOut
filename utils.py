@@ -52,6 +52,10 @@ def most_frequent(result):
 class selectedEmotions(BaseModel):
     emotions: list[str] = Field(description="a list of activated emotions")
 
+class finalResult(BaseModel):
+    explanation: str = Field(description="explanation for the final response")
+    response: str = Field(description="final response for the given scenario")
+
 ES_SYS_MSG = """You are an emotion manager, and your job is to tell the user which emotions should be activated to the given situation. According to Robert Plutchik's emotion wheel, you have eight base emotions which are the following:
 - 'joy'
 - 'trust'
@@ -63,6 +67,14 @@ ES_SYS_MSG = """You are an emotion manager, and your job is to tell the user whi
 - 'anticipation'"""
 
 ES_USER_MSG = """Based on the given scenario, tell me {subject}'s base emotions that could be activated.
+Here is a list of base emotions that can be selected: ['joy', 'trust', 'fear', 'surprise', 'sadness', 'disgust', 'anger', 'anticipation']
+Also follow the format instruction when responsing.
+
+format instruction: {format_instruction}
+scenario: {scenario}
+emotions: """
+
+ES_USER_MSG_CHAT = """Based on the given scenario, tell me the user's base emotions that could be activated.
 Here is a list of base emotions that can be selected: ['joy', 'trust', 'fear', 'surprise', 'sadness', 'disgust', 'anger', 'anticipation']
 Also follow the format instruction when responsing.
 
@@ -86,6 +98,16 @@ Situation: {scenario}
 Subject: {subject}
 Possible choices: {choices}
 
+Your response: """
+
+EMAD_USER_MSG_CHAT = """Given a situation, please generate the most appropriate response.
+Explain why your response is the most appropriate.
+Situation: {scenario}
+Your response: """
+
+EMAD_USER_MSG_FINAL = """Given a situation and the summary from other agents, please generate the most appropriate response.
+Situation: {scenario}
+Here is a summary of other agents' responses: {summary}
 Your response: """
 
 EUMAD_USER_MSG = """Scenario:\n{scenario}\nQuestion: What emotion(s) would {subject} ultimately feel in this situation?\nChoices:\n{choices}\n"
